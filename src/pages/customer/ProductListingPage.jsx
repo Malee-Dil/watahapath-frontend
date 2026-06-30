@@ -74,7 +74,7 @@ const ProductListingPage = () => {
       {/* Header */}
       <div className="mb-8">
         <h1 className="page-title mb-1">{SI.products}</h1>
-        <p className="text-gray-500 text-sm">ශ්‍රී ලාංකික ස්වාභාවික නිෂ්පාදන</p>
+        <p className="text-gray-500 text-sm">ශ්‍රී ලාංකික ආවේනික නිෂ්පාදන</p>
       </div>
 
       {/* Search + filter bar */}
