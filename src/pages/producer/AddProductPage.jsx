@@ -88,15 +88,15 @@ const AddProductPage = () => {
 
   return (
     <div>
-      <div className="flex items-center gap-4 mb-6">
+      <div className="flex items-center gap-3 mb-6 px-2 sm:px-0">
         <button onClick={() => navigate(-1)} className="p-2 rounded-xl hover:bg-gray-100 text-gray-500">
           <ArrowLeft size={20} />
         </button>
         <h1 className="page-title">{isEdit ? SI.editProduct : SI.addProduct}</h1>
       </div>
 
-      <div className="max-w-2xl">
-        <div className="card p-6">
+      <div className="w-full max-w-2xl mx-auto px-4 sm:px-0">
+        <div className="card p-4 sm:p-6">
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
               <label className="label">{SI.productName} *</label>
@@ -108,7 +108,7 @@ const AddProductPage = () => {
               <textarea name="description" value={form.description} onChange={handleChange} className="input-field min-h-[100px] resize-y" placeholder="නිෂ්පාදනය ගැන සවිස්තරාත්මක විස්තරයක් ලියන්න" rows={4} />
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="label">{SI.productPrice} *</label>
                 <div className="relative">
@@ -125,7 +125,7 @@ const AddProductPage = () => {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="label">{SI.productCategory} *</label>
-                <div className="grid grid-cols-5 gap-2">
+                <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-2">
                   {CATEGORIES.map((c) => {
                     const isSelected = form.category === c.id
                     return (
@@ -140,7 +140,7 @@ const AddProductPage = () => {
                           outlineOffset: '2px',
                         }}
                       >
-                        <img src={c.image} alt={c.label} className="w-full h-full object-cover" />
+                        <img src={c.image.startsWith('/') ? c.image : `/${c.image}`} alt={c.label} className="w-full h-full object-cover" />
                         <div
                           className="absolute inset-0"
                           style={{
@@ -151,7 +151,7 @@ const AddProductPage = () => {
                         />
                         <p
                           className="absolute bottom-0 left-0 right-0 text-white text-center font-bold pb-1"
-                          style={{ fontSize: '9px', fontFamily: 'Yaldevi, sans-serif' }}
+                          style={{ fontSize: '10px', fontFamily: 'Yaldevi, sans-serif' }}
                         >
                           {c.label}
                         </p>
@@ -185,7 +185,7 @@ const AddProductPage = () => {
                 placeholder="https://example.com/image.jpg"
               />
               {form.imageUrl && (
-                <div className="mt-3 w-24 h-24 rounded-xl overflow-hidden border border-gray-200">
+                <div className="mt-3 w-20 h-20 sm:w-24 sm:h-24 rounded-xl overflow-hidden border border-gray-200">
                   <img
                     src={form.imageUrl}
                     alt="preview"
@@ -196,11 +196,11 @@ const AddProductPage = () => {
               )}
             </div>
 
-            <div className="flex gap-3 pt-2">
+            <div className="flex flex-col sm:flex-row gap-3 pt-2">
               <button type="button" onClick={() => navigate(-1)} className="btn-secondary flex-1 !justify-center">
                 {SI.cancel}
               </button>
-              <button type="submit" disabled={loading} className="btn-primary flex-1 !justify-center disabled:opacity-60">
+              <button type="submit" disabled={loading} className="btn-primary flex-1 !justify-center disabled:opacity-60 w-full sm:w-auto">
                 <Save size={16} />
                 {loading ? SI.loading : (isEdit ? 'යාවත්කාලීන කරන්න' : SI.addProduct)}
               </button>
