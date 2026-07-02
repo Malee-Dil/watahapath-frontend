@@ -174,23 +174,65 @@ const AddProductPage = () => {
               </div> */}
             </div>
 
-            <div>
-              <label className="label">{SI.productImage} URL ({SI.optional})</label>
-              <input
-                type="url"
-                name="imageUrl"
-                value={form.imageUrl}
-                onChange={handleChange}
-                className="input-field"
-                placeholder="https://example.com/image.jpg"
-              />
+            <div className="space-y-4">
+              <label className="label">
+                {SI.productImage} ({SI.optional})
+              </label>
+
+              {/* Upload Button */}
+              <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                      const previewUrl = URL.createObjectURL(file);
+                      setForm((prev) => ({
+                        ...prev,
+                        imageFile: file,
+                        imageUrl: previewUrl,
+                      }));
+                    }
+                  }}
+                  className="hidden"
+                  id="imageUpload"
+                />
+
+                <label
+                  htmlFor="imageUpload"
+                  className="cursor-pointer px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"
+                >
+                  Upload from Device
+                </label>
+
+                {/* Optional URL Toggle */}
+                <details className="w-full">
+                  <summary className="cursor-pointer text-sm text-gray-500">
+                    Or paste image URL
+                  </summary>
+
+                  <input
+                    type="url"
+                    name="imageUrl"
+                    value={form.imageUrl}
+                    onChange={handleChange}
+                    className="input-field mt-2"
+                    placeholder="https://example.com/image.jpg"
+                  />
+                </details>
+              </div>
+
+              {/* Preview */}
               {form.imageUrl && (
-                <div className="mt-3 w-20 h-20 sm:w-24 sm:h-24 rounded-xl overflow-hidden border border-gray-200">
+                <div className="mt-3 w-24 h-24 sm:w-28 sm:h-28 rounded-xl overflow-hidden border border-gray-200 shadow-sm">
                   <img
                     src={form.imageUrl}
                     alt="preview"
                     className="w-full h-full object-cover"
-                    onError={(e) => { e.currentTarget.style.display = 'none' }}
+                    onError={(e) => {
+                      e.currentTarget.style.display = "none";
+                    }}
                   />
                 </div>
               )}
