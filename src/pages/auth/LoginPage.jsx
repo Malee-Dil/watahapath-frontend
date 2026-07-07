@@ -151,6 +151,17 @@ const LoginPage = () => {
 
                       toast.success('Google Login Successful 🎉')
 
+                      if (
+                        user.role === 'customer' &&
+                        !user.profileCompleted
+                      ) {
+                        navigate('/complete-profile', {
+                          replace: true,
+                        })
+                        return
+                      }
+
+
                       const redirects = {
                         admin: '/admin/dashboard',
                         producer: '/producer/dashboard',

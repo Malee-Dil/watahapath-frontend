@@ -14,8 +14,10 @@ import CustomerLayout from './layouts/CustomerLayout'
 import HomePage from './pages/auth/HomePage'
 import LoginPage from './pages/auth/LoginPage'
 import RegisterPage from './pages/auth/RegisterPage'
+import CompleteProfilePage from './pages/auth/CompleteProfilePage'
 import ProductListingPage from './pages/customer/ProductListingPage'
 import ProductDetailPage from './pages/customer/ProductDetailPage'
+
 
 // Customer pages
 import CustomerDashboard from './pages/customer/CustomerDashboard'
@@ -99,6 +101,10 @@ function App() {
 
           {/* Fallback */}
           <Route path="*" element={<Navigate to="/" replace />} />
+          <Route
+          path="/complete-profile"
+          element={<CompleteProfilePage />}
+          />
         </Routes>
       </CartProvider>
     </AuthProvider>
