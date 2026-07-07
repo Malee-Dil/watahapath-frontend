@@ -102,8 +102,12 @@ function App() {
           {/* Fallback */}
           <Route path="*" element={<Navigate to="/" replace />} />
           <Route
-          path="/complete-profile"
-          element={<CompleteProfilePage />}
+            path="/complete-profile"
+            element={
+              <ProtectedRoute>
+                <CompleteProfilePage />
+              </ProtectedRoute>
+            }
           />
         </Routes>
       </CartProvider>
