@@ -44,6 +44,23 @@ export const AuthProvider = ({ children }) => {
     return newUser
   }, [])
 
+  const loginWithGoogle = useCallback(async (googleToken) => {
+  const res = await authService.googleLogin(googleToken)
+
+  const { token: newToken, user: newUser } = res.data
+
+  localStorage.setItem('watahapath_token', newToken)
+  localStorage.setItem(
+    'watahapath_user',
+    JSON.stringify(newUser)
+  )
+
+  setToken(newToken)
+  setUser(newUser)
+
+  return newUser
+}, [])
+
   const logout = useCallback(() => {
     localStorage.removeItem('watahapath_token')
     localStorage.removeItem('watahapath_user')
@@ -61,7 +78,7 @@ export const AuthProvider = ({ children }) => {
   const role = user?.role || null
 
   return (
-    <AuthContext.Provider value={{ user, token, loading, isAuthenticated, role, login, register, logout, updateUser }}>
+    <AuthContext.Provider value={{ user, token, loading, isAuthenticated, role, login, register,loginWithGoogle, logout, updateUser }}>
       {children}
     </AuthContext.Provider>
   )

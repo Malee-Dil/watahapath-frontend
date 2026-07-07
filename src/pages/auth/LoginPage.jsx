@@ -4,9 +4,10 @@ import { Eye, EyeOff, LogIn } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { useAuth } from '../../context/AuthContext'
 import { SI } from '../../utils/constants'
+import { GoogleLogin } from '@react-oauth/google'
 
 const LoginPage = () => {
-  const { login } = useAuth()
+  const { login, loginWithGoogle } = useAuth()
   const navigate = useNavigate()
   const location = useLocation()
   const from = location.state?.from?.pathname || '/dashboard'
@@ -127,6 +128,53 @@ const LoginPage = () => {
               <LogIn size={18} />
               {loading ? SI.loading : SI.login}
             </button>
+            <div className="my-6">
+              <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-gray-300"></div>
+                </div>
+
+                <div className="relative flex justify-center text-sm">
+                  <span className="bg-white px-4 text-gray-500">
+                    හෝ
+                  </span>
+                </div>
+              </div>
+
+              <div className="mt-5 flex justify-center">
+                <GoogleLogin
+                  onSuccess={async (credentialResponse) => {
+                    try {
+                      const user = await loginWithGoogle(
+                        credentialResponse.credential
+                      )
+
+                      toast.success('Google Login Successful 🎉')
+
+                      const redirects = {
+                        admin: '/admin/dashboard',
+                        producer: '/producer/dashboard',
+                        customer: '/customer/dashboard',
+                      }
+
+                      navigate(
+                        redirects[user.role] || '/dashboard',
+                        { replace: true }
+                      )
+
+                    } catch (err) {
+                      toast.error(
+                        err?.response?.data?.message ||
+                        'Google Login Failed'
+                      )
+                    }
+                  }}
+                  onError={() => {
+                    toast.error('Google Login Failed')
+                  }}
+                />
+              </div>
+            </div>
           </form>
 
           <p className="mt-6 text-center text-gray-500 text-sm">
