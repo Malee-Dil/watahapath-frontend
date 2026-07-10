@@ -9,6 +9,8 @@ import api from '../../services/api'
 
 const CompleteProfilePage = () => {
 
+  console.log("Complete Profile Page Mounted")
+
   const navigate = useNavigate()
 
   const {
