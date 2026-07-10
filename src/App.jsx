@@ -104,9 +104,7 @@ function App() {
           <Route
             path="/complete-profile"
             element={
-              <ProtectedRoute>
                 <CompleteProfilePage />
-              </ProtectedRoute>
             }
           />
         </Routes>
