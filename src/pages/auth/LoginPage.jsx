@@ -149,6 +149,8 @@ const LoginPage = () => {
                         credentialResponse.credential
                       )
 
+                      console.log('GOOGLE USER:', user)
+
                       toast.success('Google Login Successful 🎉')
 
                       if (
